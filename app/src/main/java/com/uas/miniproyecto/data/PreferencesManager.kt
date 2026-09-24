@@ -14,6 +14,7 @@ class PreferencesManager(context: Context) {
         const val KEY_DEGREE = "key_degree"
         const val KEY_SHIFT = "key_shift"
         const val KEY_STATUS = "key_status"
+        const val KEY_DARK_THEME = "key_dark_theme"
     }
 
     fun saveSettings(student_id: String, full_name: String, degree: String, shift: Boolean, status: Boolean) {
@@ -24,6 +25,12 @@ class PreferencesManager(context: Context) {
         editor.putString(KEY_DEGREE, degree)
         editor.putBoolean(KEY_SHIFT, shift)
         editor.putBoolean(KEY_STATUS, status)
+    }
+
+    fun saveSettings(darkTheme: Boolean) {
+        val editor = sharedPreferences.edit()
+
+        editor.putBoolean(KEY_DARK_THEME, darkTheme)
     }
 
     fun getStudentId(): String {
