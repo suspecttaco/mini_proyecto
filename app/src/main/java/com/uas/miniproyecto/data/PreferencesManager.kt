@@ -53,6 +53,10 @@ class PreferencesManager(context: Context) {
         return sharedPreferences.getBoolean(KEY_STATUS, false)
     }
 
+    fun getDarkThemeFlag(): Boolean {
+        return sharedPreferences.getBoolean(KEY_DARK_THEME, false)
+    }
+
     fun clearPreferences() {
         sharedPreferences.edit().clear().apply()
     }
