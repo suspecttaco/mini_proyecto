@@ -32,6 +32,7 @@ class PreferencesManager(context: Context) {
         val editor = sharedPreferences.edit()
 
         editor.putBoolean(KEY_DARK_THEME, darkTheme)
+        editor.apply()
     }
 
     fun getStudentId(): String {
