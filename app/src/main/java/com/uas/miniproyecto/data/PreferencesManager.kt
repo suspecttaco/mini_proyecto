@@ -17,14 +17,15 @@ class PreferencesManager(context: Context) {
         const val KEY_DARK_THEME = "key_dark_theme"
     }
 
-    fun saveSettings(student_id: String, full_name: String, degree: String, shift: Boolean, status: Boolean) {
+    fun saveSettings(student_id: String, full_name: String, degree: String, shift: String, status: Boolean) {
         val editor = sharedPreferences.edit()
 
         editor.putString(KEY_STUDENT_ID, student_id)
         editor.putString(KEY_FULL_NAME, full_name)
         editor.putString(KEY_DEGREE, degree)
-        editor.putBoolean(KEY_SHIFT, shift)
+        editor.putString(KEY_SHIFT, shift)
         editor.putBoolean(KEY_STATUS, status)
+        editor.apply()
     }
 
     fun saveSettings(darkTheme: Boolean) {
@@ -45,8 +46,8 @@ class PreferencesManager(context: Context) {
         return sharedPreferences.getString(KEY_DEGREE, "") ?: ""
     }
 
-    fun getShift(): Boolean {
-        return sharedPreferences.getBoolean(KEY_SHIFT, false)
+    fun getShift(): String {
+        return sharedPreferences.getString(KEY_SHIFT, "") ?: ""
     }
 
     fun getStatus(): Boolean {
