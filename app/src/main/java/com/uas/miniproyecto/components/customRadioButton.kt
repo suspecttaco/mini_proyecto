@@ -16,30 +16,32 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun CustomRadioButton() {
-    var selectedOption by remember { mutableStateOf("Matutino") }
+fun CustomRadioButton(
+    selectedOption: String,
+    onOptionSelected: (String) -> Unit
+) {
 
     Row(verticalAlignment = Alignment.CenterVertically) {
         RadioButton(
             selected = (selectedOption == "Matutino"),
-            onClick = { selectedOption = "Matutino" }
+            onClick = { onOptionSelected("Matutino") }
         )
 
         Text(
             text = "Matutino",
-            modifier = Modifier.clickable { selectedOption = "Matutino" }
+            modifier = Modifier.clickable {  onOptionSelected("Matutino") }
         )
 
         Spacer(modifier = Modifier.width(16.dp))
 
         RadioButton(
             selected = (selectedOption == "Vespertino"),
-            onClick = { selectedOption = "Vespertino" }
+            onClick = { onOptionSelected("Vespertino") }
         )
 
         Text(
             text = "Vespertino",
-            modifier = Modifier.clickable { selectedOption = "Vespertino" }
+            modifier = Modifier.clickable { onOptionSelected("Vespertino") }
         )
     }
 }

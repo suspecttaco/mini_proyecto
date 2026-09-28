@@ -18,9 +18,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 
 @Composable
-fun CustomSpinner() {
+fun CustomSpinner(
+    selectedText: String,
+    onOptionSelected: (String) -> Unit
+) {
     var expanded by remember { mutableStateOf(false) }
-    var selectedText by remember { mutableStateOf("Seleccionar opcion") }
 
     Box(modifier = Modifier.fillMaxWidth()) {
         OutlinedTextField(
@@ -39,37 +41,22 @@ fun CustomSpinner() {
             expanded = expanded,
             onDismissRequest = {expanded = false}
         ) {
-            DropdownMenuItem(
-                text = { Text("Ingenieria de Software") },
-                onClick = {
-                    selectedText = "Ingenieria de Software"
-                    expanded = false
-                }
-            )
 
-            DropdownMenuItem(
-                text = { Text("Ingenieria Civil") },
-                onClick = {
-                    selectedText = "Ingenieria Civil"
-                    expanded = false
-                }
-            )
+            listOf(
+                "Ingenieria de Software",
+                "Ingenieria Civil",
+                "Ingenieria en Procesos Industriales",
+                "Ingenieria Geodesica"
+            ).forEach { option ->
+                DropdownMenuItem(
+                    text = { Text(option) },
+                    onClick = {
+                        onOptionSelected(option)
+                        expanded = false
+                    }
+                )
+            }
 
-            DropdownMenuItem(
-                text = { Text("Ingenieria en Procesos Industriales") },
-                onClick = {
-                    selectedText = "Ingenieria en Procesos Industriales"
-                    expanded = false
-                }
-            )
-
-            DropdownMenuItem(
-                text = { Text("Ingenieria Geodesica") },
-                onClick = {
-                    selectedText = "Ingenieria Geodesica"
-                    expanded = false
-                }
-            )
         }
     }
 }

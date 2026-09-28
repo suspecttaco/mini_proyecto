@@ -16,19 +16,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun CustomSwitch() {
-    var isChecked by remember { mutableStateOf(false) }
+fun CustomSwitch(
+    checked: Boolean,
+    onCheckedChange: (Boolean) -> Unit
+) {
 
     Row(
         modifier = Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        Text("Activo:", fontSize = 16.sp)
+        Text("Estado:", fontSize = 16.sp)
 
         Switch(
-            checked = isChecked,
-            onCheckedChange = { isChecked = it }
+            checked = checked,
+            onCheckedChange = onCheckedChange
         )
     }
 }
