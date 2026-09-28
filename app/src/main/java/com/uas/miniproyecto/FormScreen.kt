@@ -8,6 +8,9 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawingPadding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.HorizontalDivider
@@ -68,11 +71,15 @@ fun FormScreen() {
 
     MaterialTheme(colorScheme = colorScheme) {
         Surface(
-            modifier = Modifier.fillMaxSize().padding(12.dp),
+            modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
         ) {
             Column(
-                modifier = Modifier.fillMaxSize().padding(32.dp),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .safeDrawingPadding()
+                    .padding(32.dp)
+                    .verticalScroll(rememberScrollState()),
                 verticalArrangement = Arrangement.spacedBy(12.dp),
 
             ) {
@@ -176,7 +183,7 @@ fun FormScreen() {
                     onClick = {
                         studentId = preferencesManager.getStudentId()
                         fullName = preferencesManager.getFullName()
-                        degree = preferencesManager.getDegree()
+                        degree = preferencesManager.getDegree().ifBlank { "Seleccionar opcion" }
                         shift = preferencesManager.getShift()
                         status = preferencesManager.getStatus()
 
@@ -213,7 +220,10 @@ fun FormScreen() {
                     Text("Activar Tema Oscuro")
                     Switch(
                         checked = darkTheme,
-                        onCheckedChange = { darkTheme = it }
+                        onCheckedChange = {
+                            darkTheme = it
+                            preferencesManager.saveSettings(it)
+                        }
                     )
                 }
             }
