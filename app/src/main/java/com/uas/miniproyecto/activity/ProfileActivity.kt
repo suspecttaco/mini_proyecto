@@ -3,6 +3,10 @@ package com.uas.miniproyecto.activity
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.lightColorScheme
+import com.uas.miniproyecto.data.PreferencesManager
 
 
 class ProfileActivity : ComponentActivity() {
@@ -18,14 +22,20 @@ class ProfileActivity : ComponentActivity() {
         val status = intent.getStringExtra("EXTRA_STATUS") ?: "Sin estado"
 
         setContent {
-            ProfileScreen(
-                studentId,
-                fullName,
-                degree,
-                shift,
-                status,
-                onBackClick = { finish() }
-            )
+            val darkTheme = PreferencesManager(this).getDarkThemeFlag()
+
+            MaterialTheme(
+                colorScheme = if (darkTheme) darkColorScheme() else lightColorScheme()
+            ) {
+                ProfileScreen(
+                    studentId,
+                    fullName,
+                    degree,
+                    shift,
+                    status,
+                    onBackClick = { finish() }
+                )
+            }
         }
     }
 }
